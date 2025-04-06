@@ -1,0 +1,152 @@
+{% extends "base/base.html" %}
+
+
+{% comment %} {% block content %}
+
+  <!-- RECENT ARTICLE Heading -->
+
+  <div class="col-12">
+    <h1 class="text-center text-uppercase"> <i class="fa-solid fa-layer-group"></i> Category - {{ category.category_name}}</h1>
+  </div>
+  <main role="main" class="container p-0">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        {% for post in posts %}
+          <div class="card border-0">
+            <img src="{{ post.blog_image.url }}" class="card-img-top img-fluid rounded shadow" alt="Post Image" style='width:68%'>
+            <div class="card-body">
+              <h3>
+                <a class='link-hover featured-post-title' href="{% url "blogs" post.slug %}">{{ post.title }}</a>
+              </h3>
+              <small class="mb-1 text-muted">{{ post.created_at | timesince }} ago | {{ post.author }}</small>
+              <p class="card-text">{{ post.short_description | truncatewords:30 }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- /.blog-main -->
+
+
+    </div><!-- /.row -->
+
+  </main><!-- /.container -->
+
+{% endblock %}   {% endcomment %}
+
+
+
+{% comment %} 
+{% block content %}
+
+  <!-- RECENT ARTICLE Heading -->
+  <div class="col-12 text-center mb-4 mt-4">
+    <h1 class="text-uppercase">
+      <i class="fa-solid fa-layer-group"></i> 
+      Category - {{ category.category_name }}
+    </h1>
+  </div>
+
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        {% for post in posts %}
+          <div class="card border-0 mb-4 shadow-sm">
+            <div class="row no-gutters">
+              <!-- Left Side: Image (Increased width to col-md-6) -->
+              <div class="col-md-6">
+                <img src="{{ post.blog_image.url }}" class="card-img-left img-fluid rounded shadow" alt="Post Image" style="height: 100%; object-fit: cover;">
+              </div>
+              <!-- Right Side: Content -->
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h3>
+                    <a class="link-hover featured-post-title text-decoration-none" href="{% url 'blogs' post.slug %}">
+                      {{ post.title }}
+                    </a>
+                  </h3>
+                  <small class="mb-2 d-block text-muted">
+                    <i class="fa fa-clock"></i> {{ post.created_at | timesince }} ago | <i class="fa fa-user"></i> {{ post.author }}
+                  </small>
+                  <p class="card-text">{{ post.short_description | truncatewords:30 }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- /.blog-main -->
+
+      <!-- Optional: Sidebar (if needed) -->
+      <div class="col-md-4">
+        <!-- You can add a sidebar here if required -->
+      </div>
+      <!-- /.sidebar -->
+    </div><!-- /.row -->
+  </main><!-- /.container -->
+
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% block content %}
+
+  <!-- RECENT ARTICLE Heading -->
+  <div class="col-12 text-center mb-4 mt-4">
+    <h1 class="text-uppercase">
+      <i class="fa-solid fa-layer-group"></i> 
+      Category - {{ category.category_name }}
+    </h1>
+  </div>
+
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        {% for post in posts %}
+          <div class="card border-0 mb-4 shadow-sm">
+            <div class="row no-gutters">
+              <!-- Left Side: Image (Increased width to col-md-6) -->
+              <div class="col-md-6">
+                <img src="{{ post.blog_image.url }}" class="card-img-left img-fluid rounded shadow" alt="Post Image" style="height: 100%; object-fit: cover;">
+              </div>
+              <!-- Right Side: Content -->
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h3>
+                    <a class="link-hover featured-post-title text-decoration-none" href="{% url 'blogs' post.slug %}">
+                      {{ post.title }}
+                    </a>
+                  </h3>
+                  <small class="mb-2 d-block text-muted">
+                    <i class="fa fa-clock"></i> {{ post.created_at | timesince }} ago | <i class="fa fa-user"></i> {{ post.author }}
+                  </small>
+                  <p class="card-text">{{ post.short_description | truncatewords:30 }}</p>
+                  <!-- Read More Button -->
+                  <a href="{% url 'blogs' post.slug %}" class="btn btn-primary btn-sm mt-3 custom-badge">
+                    <i class="fa fa-arrow-right"></i> Read More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- /.blog-main -->
+
+      <!-- Optional: Sidebar (if needed) -->
+      <div class="col-md-4">
+        <!-- You can add a sidebar here if required -->
+      </div>
+      <!-- /.sidebar -->
+    </div><!-- /.row -->
+  </main><!-- /.container -->
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+  <!-- FIRST FEATURED POST -->      
+  {% for post in featured_post %}
+    {% if forloop.first %}
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark mb-2" 
+           style="background-image: url({{ post.blog_image.url }}); background-blend-mode: overlay; background-size: cover;">
+        <div class="col-md-8 px-0">
+          {% comment %} <h1 class="display-4">{{ post.title }}</h1> {% endcomment %}
+          <h1 class="display-4">
+            <a href="{% url 'blogs' post.slug %}" class="link-hover">{{ post.title }}</a>
+          </h1>
+          <p class="lead my-3">{{ post.short_description | truncatewords:30 }}</p>
+          <p class="lead mb-0">
+            <a href="{% url 'blogs' post.slug %}" class="btn btn-warning btn-lg text-black fw-bold">
+              <i class="fas fa-chevron-right"></i>
+              Continue reading...
+            </a>
+          </p>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  <!-- OTHER FEATURED POSTS -->   
+  <div class="row mb-2 mt-3">
+    <!-- Featured Post Heading -->
+    <div class="col-12">
+      <h1 class="text-center text-uppercase"> <i class="fas fa-clipboard"></i> Featured Post</h1>
+    </div>
+
+    <!-- Loop to display posts -->
+    {% for post in featured_post %}
+      {% if not forloop.first %}
+        <div class="col-md-4 mb-3">
+          <div class="card border-0">
+            <img src="{{ post.blog_image.url }}" class="card-img-top" alt="Post Image">
+            <div class="card-body">
+              {% comment %} <h3>{{ post.title }}</h3> {% endcomment %}
+              <h3 class="display-4">
+                <a href="{% url 'blogs' post.slug %}" class="link-hover featured-post-title">{{ post.title }}</a>
+              </h3>
+              <small class="mb-1 text-muted">{{ post.created_at | timesince }} ago | {{ post.author }}</small>
+              <p class="card-text">{{ post.short_description | truncatewords:20 }}</p>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- RECENT ARTICLE Heading -->
+  <div class="col-12">
+    <h1 class="text-center text-uppercase"><i class="fas fa-clipboard-list"></i> Recent Articles</h1>
+  </div>
+  
+  <main role="main" class="container p-0">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        {% for post in recent_posts %}
+          <div class="card border-0 mb-4">
+            <!-- Use Bootstrap's img-fluid with a consistent size and object-fit: cover -->
+            <img src="{{ post.blog_image.url }}" class="card-img-top img-fluid rounded shadow" alt="Post Image" style="height: 250px; object-fit: cover;">
+            <div class="card-body">
+              <h3>
+                <a class="link-hover featured-post-title" href="{% url "blogs" post.slug %}">{{ post.title }}</a>
+              </h3>
+              <small class="mb-1 text-muted">{{ post.created_at | timesince }} ago | {{ post.author }}</small>
+              <p class="card-text">{{ post.short_description | truncatewords:20 }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- /.blog-main -->
+
+      <aside class="col-md-4 blog-sidebar">
+        <div class="p-3 mb-3 bg-light rounded">
+          <h4 class="font-italic">About Django Diaries</h4>
+          <hr>
+          <p class="mb-0">Django Diaries is a blog platform built with Django, dedicated to sharing tips, tutorials, and insights on web development. Whether you're a beginner or an experienced developer, we aim to provide content that empowers you to build better, faster, and more scalable applications. From Django best practices to industry trends, we cover it all. Join us on our journey to make the web a better place!</p>
+          <a href="/about" class="btn btn-primary mt-3">Read More</a> <!-- 'Read More' button -->
+        </div>
+
+        <div class="p-3">
+          <h4 class="font-italic">Follow Us</h4>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-github"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-facebook"></i></a></li>
+          </ul>
+        </div>
+      </aside>
+      <!-- /.blog-sidebar -->
+    </div><!-- /.row -->
+  </main><!-- /.container -->
+
+{% endblock %}

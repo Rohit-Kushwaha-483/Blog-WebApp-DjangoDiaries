@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+
+
+
+{% block content %}
+
+  <!-- RECENT ARTICLE Heading -->
+  <div class="col-12 text-center mb-4 mt-4">
+    <h1>
+        <i class="fas fa-search"></i>
+        Search Result for - {{ keyword }}
+    </h1>
+  </div>
+
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        {% for post in blogs %}
+          <div class="card border-0 mb-4 shadow-sm">
+            <div class="row no-gutters">
+              <!-- Left Side: Image (Increased width to col-md-6) -->
+              <div class="col-md-6">
+                <img src="{{ post.blog_image.url }}" class="card-img-left img-fluid rounded shadow" alt="Post Image" style="height: 100%; object-fit: cover;">
+              </div>
+              <!-- Right Side: Content -->
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h3>
+                    <a class="link-hover featured-post-title text-decoration-none" href="{% url 'blogs' post.slug %}">
+                      {{ post.title }}
+                    </a>
+                  </h3>
+                  <small class="mb-2 d-block text-muted">
+                    {{ post.created_at | timesince }} ago | {{ post.author }}
+                  </small>
+                  <p class="card-text">{{ post.short_description | truncatewords:30 }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- /.blog-main -->
+
+      <!-- Optional: Sidebar (if needed) -->
+      <div class="col-md-4">
+        <!-- You can add a sidebar here if required -->
+      </div>
+      <!-- /.sidebar -->
+    </div><!-- /.row -->
+  </main><!-- /.container -->
+
+{% endblock %}
+

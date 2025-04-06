@@ -1,0 +1,70 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-12">
+        <!-- Success Message Card -->
+        <div class="card shadow-lg" style="border-radius: 15px; background-color: #007BFF; color: white; padding: 40px 30px;">
+          <!-- Card Header -->
+          <div class="card-header text-center" style="background-color: transparent; border: none;">
+            <h3 style="font-size: 2.5rem; font-weight: 600;">
+              <i class="fas fa-check-circle" style="font-size: 3rem; margin-right: 15px;"></i> 
+              Your Message Has Been Sent Successfully!
+            </h3>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body text-center" style="font-size: 1.1rem; font-weight: 400; padding: 40px 30px; background-color: transparent;">
+            <p style="margin-bottom: 25px; line-height: 1.8;">
+              <i class="fas fa-envelope-open-text" style="font-size: 1.8rem; margin-right: 10px;"></i> 
+              We have received your message and will get back to you as soon as possible.
+            </p>
+            <a href="{% url 'home' %}" class="btn btn-light" style="background-color: #007BFF; color: white; padding: 12px 30px; font-size: 1.2rem; font-weight: 500; border-radius: 30px; transition: all 0.3s ease-in-out; text-decoration: none;">
+              <i class="fas fa-home"></i> Go to Home Page
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline CSS for Hover Effects and Animations -->
+  <style>
+    .card {
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-light {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .btn-light:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-light i {
+      margin-right: 8px;
+    }
+
+    /* Icon Color Animation */
+    .fas {
+      color: white;
+      transition: color 0.3s ease-in-out;
+    }
+  </style>
+{% endblock %}

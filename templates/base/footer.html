@@ -1,0 +1,80 @@
+</div> <!-- This is the closing div tag of the container div which is present in the header.html  --> 
+<!-- Footer Section -->
+<footer class="bg-dark text-white py-5 mt-3">
+  <div class="container">
+      <div class="row">
+          <!-- About Section -->
+          <div class="col-md-4">
+              <h4 class="font-italic">About Django Diaries</h4>
+              <p>Django Diaries is a blog platform built with Django, dedicated to sharing tips, tutorials, and insights on web development.
+                  <a href="{% url "about" %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                      Read more</a>
+              </p>
+          </div>
+
+          <!-- Quick Links Section -->
+          <div class="col-md-4">
+              <h4 class="font-italic">Quick Links</h4>
+              <ul class="list-unstyled">
+                  <li><a href="/" class="text-white custom-hover">Home</a></li>
+                  <li><a href="/about" class="text-white custom-hover">About Us</a></li>
+                  <li><a href="/contact" class="text-white custom-hover">Contact</a></li>
+                  <li><a href="/privacy-policy" class="text-white custom-hover">Privacy Policy</a></li>
+              </ul>
+          </div>
+
+          <!-- Social Media Section -->
+          <div class="col-md-4">
+              <h4 class="font-italic">Follow Us</h4>
+              <ul class="list-inline">
+                  <li class="list-inline-item">
+                      <a href="#" class="text-white" aria-label="GitHub">
+                          <i class="fab fa-github fa-2x"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="text-white" aria-label="LinkedIn">
+                          <i class="fab fa-linkedin fa-2x"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="text-white" aria-label="Twitter">
+                          <i class="fab fa-twitter fa-2x"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="text-white" aria-label="Facebook">
+                          <i class="fab fa-facebook fa-2x"></i>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+
+      </div>
+
+      <hr class="bg-white my-4">
+
+      <!-- Copyright Section -->
+      <div class="text-center">
+          <p>&copy; 2025 DjangoDiaries. All rights reserved.</p>
+      </div>
+  </div>
+</footer>
+
+<!-- JavaScript Links (Only necessary ones) -->
+<!-- Bootstrap 5 Bundle (includes Popper.js and Bootstrap JS) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+<!-- In base.html, include the following before closing </body> tag -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Popper.js (for tooltips and popovers) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

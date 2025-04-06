@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container mt-4 text-light">
+    <div class="row">
+        <!-- Left Sidebar -->
+        {% include "dashboard/LeftSideBar.html" %}
+
+        <!-- Right Sidebar -->
+        <div class="col-md-9 mb-5 text-dark">
+            <h3 class="fw-bold text-uppercase">Edit Category</h3>
+            {% load crispy_forms_tags %}
+            <form action="{% url "edit_categories" category.id %}" method='POST' style='width:450px;'>
+                {% csrf_token %}
+                {{form | crispy}}
+                <button type='submit' class='btn custom-badge text-light'>Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

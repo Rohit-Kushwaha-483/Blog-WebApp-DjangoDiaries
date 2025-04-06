@@ -1,0 +1,159 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<!-- Page content -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Post content -->
+            <article>
+                <!-- Post header -->
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ single_post.title }}</h1>
+                    <div class="text-muted fst mb-2">
+                        Posted on <i class="fa fa-clock"></i> {{ single_post.created_at }} by <i class="fa fa-user"></i> {{ single_post.author }}
+                    </div>
+                    <a class="badge custom-badge text-decoration-none text-light"
+                       href="{% url 'posts_by_category' single_post.category.id %}">
+                        {{ single_post.category }}
+                    </a>
+                </header>
+
+                <figure class="mb-4">
+                    <img class="img-fluid rounded" src="{{ single_post.blog_image.url }}" alt="Blog Post Image" />
+                </figure>
+
+                <section class="mb-5">
+                    <p class="fs-5 mb-4 text-justify-custom">{{ single_post.short_description | linebreaksbr }}</p>
+                    <p class="fs-5 mb-4 text-justify-custom">{{ single_post.blog_body | linebreaksbr }}</p>
+                </section>
+
+                <!-- Like/Unlike button -->
+                <section class="mb-5">
+                    {% if user.is_authenticated %}
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {% if user_liked %}
+                                <button type="submit" name="like" class="btn btn-danger mt-2">
+                                    <i class="fa fa-thumbs-down"></i> Unlike
+                                </button>
+                            {% else %}
+                                <button type="submit" name="like" class="btn btn-primary mt-2">
+                                    <i class="fa fa-thumbs-up"></i> Like
+                                </button>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <p><a href="{% url 'login' %}">Login</a> to like this post.</p>
+                    {% endif %}
+                    <p>{{ like_count }} {% if like_count == 1 %} Like {% else %} Likes {% endif %}</p>
+                </section>
+
+                <!-- Show/Hide Comments Button -->
+                <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#comments-section" aria-expanded="false" aria-controls="comments-section">
+                    <i class="fa fa-comments"></i> Comments ({{ comment_counts }})
+                </button>
+
+                <!-- Comments Section (Collapsible) -->
+                <div class="collapse mt-3" id="comments-section">
+                    <div class="container mb-3">
+                        <!-- Comment Header -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="fw-bolder mb-0"><i class="fa fa-comment"></i> All Comments</h4>
+                            <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#comments-section" aria-expanded="false" aria-controls="comments-section">
+                                Hide Comments
+                            </button>
+                        </div>
+
+                        <!-- Comment List -->
+                        <div class="comments-list">
+                            {% for comment in comments %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-user"></i> {{ comment.user }}</h5>
+                                        <p class="card-text">{{ comment.comment }}</p>
+                                        <p class="card-text text-muted"><i class="fa fa-clock"></i> {{ comment.created_at | timesince }} ago</p>
+
+                                        <!-- Reply Form (Only for authenticated users) -->
+                                        {% if user.is_authenticated %}
+                                        <form action="" method="post" class="mt-3">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="parent_comment_id" value="{{ comment.id }}">
+                                            <textarea name="comment" class="form-control" placeholder="Write a reply"></textarea>
+                                            <button type="submit" class="btn btn-primary mt-2"><i class="fa fa-paper-plane"></i> Reply</button>
+                                        </form>
+                                        {% endif %}
+
+                                        <!-- Display Replies (Nested Replies) -->
+                                        {% if comment.replies.all %}
+                                            <div class="replies mt-3 ms-4">
+                                                <h6 class="font-weight-bold">Replies:</h6>
+                                                {% for reply in comment.replies.all %}
+                                                    <div class="card mb-2">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"><i class="fa fa-user"></i> {{ reply.user }}</h5>
+                                                            <p class="card-text">{{ reply.comment }}</p>
+                                                            <p class="card-text text-muted"><i class="fa fa-clock"></i> {{ reply.created_at | timesince }} ago</p>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Comment Form -->
+                        <div class="form-group mt-4">
+                            {% if user.is_authenticated %}
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <textarea name="comment" class="form-control" placeholder="Write your comment"></textarea>
+                                        <button type="submit" class="btn btn-primary mt-2"><i class="fa fa-paper-plane"></i> Submit</button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <p><a href="{% url 'login' %}">Login</a> to write a comment.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+            <div class="card mb-4 p-3">
+                <h4 class="font-italic"><i class="fa fa-tags"></i> Categories</h4>
+                <div class="card-body">
+                    <div class="row">
+                        {% for category in categories %}
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <i class="fa-sharp-duotone fa-solid fa-marker"></i>
+                                        <a class='custom-hover' href="{% url 'posts_by_category' category.id %}">{{ category.category_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social media Follow Us Section-->
+            <div class="p-3">
+                <h4 class="font-italic">Follow Us</h4>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-github"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class="social-icon"><i class="fab fa-facebook"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

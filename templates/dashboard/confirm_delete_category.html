@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container mt-4 text-light">
+    <div class="row">
+        <!-- Left Sidebar -->
+        {% include "dashboard/LeftSideBar.html" %}
+
+        <!-- Right Sidebar -->
+        <div class="col-md-9 mb-5 text-dark">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="fw-bold text-uppercase text-center mb-4">Delete Category</h3>
+                    
+                    <div class="alert alert-warning text-center">
+                        <p class="mb-2 fs-5">Are you sure you want to delete the category <strong>{{ category.category_name }}</strong>?</p>
+                    </div>
+                    
+                    <form action="{% url 'delete_categories' category.id %}" method="POST" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger px-5 py-2 mb-3">Yes, Delete</button>
+                    </form>
+                    
+                    <div class="text-center">
+                        <a href="{% url 'categories' %}" class="btn btn-secondary px-5 py-2">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

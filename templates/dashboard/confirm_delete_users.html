@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container mt-4 text-light">
+    <div class="row">
+        <!-- Left Sidebar -->
+        {% include "dashboard/LeftSideBar.html" %}
+
+        <!-- Right Sidebar -->
+        <div class="col-md-9 mb-5 text-dark">
+            <h3 class="fw-bold text-uppercase">Confirm Delete User</h3>
+
+            <p class='fs-5'>Are you sure you want to delete the user <b>"{{ user.username }}"</b> ?</p>
+            
+
+            <form action="{% url 'delete_user' user.id %}" method="POST" style="width:600px;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete User</button>
+                <a href="{% url 'users' %}" class="btn btn-secondary">Cancel</a> <!-- or redirect to another page -->
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

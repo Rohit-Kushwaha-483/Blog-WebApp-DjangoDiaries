@@ -1,0 +1,70 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Sidebar -->
+        {% include "dashboard/LeftSideBar.html" %}
+
+        <!-- Right Sidebar (Form) -->
+        <div class="col-md-9 mb-5">
+            <!-- Card to contain the form -->
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header text-center bg-warning text-black">
+                    <h3 class="fw-bold mt-3">
+                        <i class="fas fa-edit"></i> Edit Post: {{ post.title }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% load crispy_forms_tags %}
+
+                    <!-- Form -->
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Image Preview Section (If the post already has an image) -->
+                        {% if post.blog_image %}
+                            <div class="form-group">
+                                <label for="currentImage">
+                                    <i class="fas fa-camera"></i> Current Image
+                                </label>
+                                <img src="{{ post.blog_image.url }}" alt="Current Image" class="img-fluid rounded mb-3" id="currentImage" />
+                            </div>
+                        {% endif %}
+
+                        <!-- Display form errors if any -->
+                        <div class="alert alert-danger" style="display: {% if form.errors %}block{% else %}none{% endif %}">
+                            <ul>
+                                <li><i class="fas fa-exclamation-circle"></i> Please fix the errors below:</li>
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li><i class="fas fa-exclamation"></i> {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Render the form with crispy styling -->
+                        <div class="form-group">
+                            {{ form|crispy }}
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'posts' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Posts
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

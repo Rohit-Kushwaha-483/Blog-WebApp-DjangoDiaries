@@ -1,0 +1,171 @@
+/* stylelint-disable selector-list-comma-newline-after */
+
+.blog-header {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-header-logo {
+  font-family: "Lora", Georgia, "Times New Roman", serif;
+  font-size: 2.25rem;
+}
+
+.blog-header-logo:hover {
+  text-decoration: none;
+}
+
+.text-justify-custom {
+  text-align: justify;
+}
+
+/* ********************** */
+/* This class is applied to the <a> tag of FIRST FEATURED POST at home page */
+/* Link-hover class - Elegant with underline expansion, subtle scaling, and color change */
+.link-hover {
+  position: relative;
+  text-decoration: none;
+  color: white; /* Default color */
+  font-weight: 500; /* Slight boldness for visibility */
+  transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+.link-hover:hover {
+  /* Subtle scaling effect on hover */
+  transform: scale(1.01); /* Slight zoom effect */
+  color: #007bff; /* Change text color smoothly to blue on hover */
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  width: 0%; /* Initially no underline */
+  height: 2px; /* Thin underline for elegance */
+  bottom: 0;
+  left: 0;
+  background-color: #013d8c; /* Underline color */
+  transition: width 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.link-hover:hover::after {
+  width: 100%; /* Full width underline on hover */
+}
+
+
+
+/* ********************** */
+.featured-post-title{
+  color: black;
+  font-size: 28px;
+  display: inline-block; 
+  bottom: -5px; 
+}
+
+/* ********************** */
+.custom-hover {
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.custom-hover:hover {
+  color: #007bff !important;
+}
+
+.custom-hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #007bff;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.custom-hover:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+/* ********************** */
+
+.social-icon {
+  font-size: 30px;
+  color: #000000;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #007bff; /* Change to a color of your choice */
+  transform: scale(1.1);
+}
+
+/* ************************************ */
+/* This CSS is Applied to the Category Badge of Single Blog Page  */
+/* Custom badge with simple design and hover effect */
+.custom-badge {
+  background: linear-gradient(135deg, #007bff, #6f42c1);
+  border-radius: 50px;
+  padding: 8px 20px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  display: inline-block; 
+}
+.custom-badge:hover {
+  transform: scale(1.05); 
+  background-color: #0056b3;
+}
+/* ************************************ */
+
+
+/* ************************************ */
+
+/* h1, h2, h3, h4, h5, h6 {
+  font-family: "Merriweather", Georgia, "Times New Roman", serif;
+} */
+
+h1,h2{
+  font-family: "Merriweather", Georgia, "Times New Roman", serif;
+}
+
+.display-4 {
+  font-size: 2.5rem;
+}
+@media (min-width: 768px) {
+  .display-4 {
+      font-size: 3rem;
+  }
+}
+
+.flex-auto {
+  flex: 0 0 auto;
+}
+
+.h-250 { height: 250px; }
+@media (min-width: 768px) {
+  .h-md-250 { height: 250px; }
+}
+
+/* Pagination */
+.blog-pagination {
+  margin-bottom: 4rem;
+}
+
+/*
+* Blog posts
+*/
+.blog-post {
+  margin-bottom: 4rem;
+}
+.blog-post-title {
+  font-size: 2.5rem;
+}
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: #727272;
+}
+
+
