@@ -3,6 +3,9 @@ from .models import Blogs, Category, Comment, Like
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from dashboard.models import UserProfile
+from django.contrib.auth.models import User
+
 
 # This view will display posts that belong to a specific category.
 
@@ -91,13 +94,17 @@ def blogs(request, slug):
     # Step 5: Check if the logged-in user has already liked this post (only if the user is authenticated)
     user_liked = Like.objects.filter(blog=single_post, user=request.user).exists() if request.user.is_authenticated else False
 
+    # Retrieve the user's profile
+    author_profile = UserProfile.objects.filter(user=single_post.author).first()
+
     # Step 6: Prepare the context for the template (data to be passed to the HTML)
     context = {
-        'single_post': single_post,  # The blog post
-        'comments': comments,  # All the top-level comments (replies will be nested)
-        'comment_counts': comment_counts,  # Number of comments
-        'like_count': like_count,  # Number of likes
-        'user_liked': user_liked,  # If the user has liked the post
+        'single_post': single_post,
+        'comments': comments,
+        'comment_counts': comment_counts,
+        'like_count': like_count,
+        'user_liked': user_liked,
+        'author_profile': author_profile,  # 👈 updated variable
     }
 
     # Step 7: Render the HTML page and pass the context data
@@ -124,4 +131,17 @@ def search(request):
     }
 
     return render(request, 'search.html', context)
+
+def posts_by_author(request, username):
+    author = get_object_or_404(User, username=username)
+
+    # Fetch posts associated with the author that are published, ordered by creation date (newest first)
+    author_posts = Blogs.objects.filter(author=author, status='published').order_by('-created_at')
+
+    context = {
+        'author': author,
+        'author_posts': author_posts,
+    }
+
+    return render(request, 'author_posts.html', context)
 

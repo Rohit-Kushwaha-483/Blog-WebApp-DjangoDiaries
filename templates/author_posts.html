@@ -1,0 +1,250 @@
+{% extends "base/base.html" %}
+
+{% comment %} {% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Posts by <b> <i class="fa-duotone fa-solid fa-user"></i> {{ author.get_full_name|default:author.username }}</b></h2>
+
+    {% if author_posts %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for post in author_posts %}
+                <div class="col">
+                    <div class="card shadow-sm border-light rounded-3">
+                        {% if post.blog_image %}
+                            <img src="{{ post.blog_image.url }}" class="card-img-top rounded-top" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text text-muted">{{ post.short_description|truncatewords:25 }}</p>
+                            <a href="{% url 'blogs' post.slug %}" class="btn btn-outline-primary stretched-link">
+                                <i class="fa fa-arrow-right"></i> Read More
+                            </a>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            <i class="fa fa-calendar-alt"></i> {{ post.created_at|date:"F j, Y" }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">This author hasn't published any blog posts yet.</p>
+    {% endif %}
+</div>
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">
+        Posts by <b><i class="fa-duotone fa-solid fa-user"></i> {{ author.get_full_name|default:author.username }}</b>
+    </h2>
+
+    {% if author_posts %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for post in author_posts %}
+                <div class="col">
+                    <div class="card-wrapper" data-index="{{ forloop.counter0 }}">
+                        <div class="card shadow-sm border-light rounded-3">
+                            {% if post.blog_image %}
+                                <img src="{{ post.blog_image.url }}" class="card-img-top rounded-top" alt="{{ post.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text text-muted">{{ post.short_description|truncatewords:25 }}</p>
+                                <a href="{% url 'blogs' post.slug %}" class="btn btn-outline-primary stretched-link">
+                                    <i class="fa fa-arrow-right"></i> Read More
+                                </a>
+                            </div>
+                            <div class="card-footer text-muted small">
+                                <i class="fa fa-calendar-alt"></i> {{ post.created_at|date:"F j, Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">This author hasn't published any blog posts yet.</p>
+    {% endif %}
+</div>
+
+<style>
+    /* Animation base state */
+    .card-wrapper {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    /* Visible state with delay based on index */
+    .card-wrapper.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Hover effect */
+    .card:hover {
+        transform: scale(1.02);
+        transition: transform 0.3s ease;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cards = document.querySelectorAll('.card-wrapper');
+
+        function animateCards() {
+            const windowHeight = window.innerHeight;
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top <= windowHeight * 0.9 && !card.classList.contains('visible')) {
+                    // Add slight delay for a staggered look
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }
+
+        // Initial and scroll trigger
+        window.addEventListener('scroll', animateCards);
+        animateCards(); // Initial load
+    });
+</script>
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">
+        Posts by <b><i class="fa-duotone fa-solid fa-user"></i> {{ author.get_full_name|default:author.username }}</b>
+    </h2>
+
+    {% if author_posts %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for post in author_posts %}
+                <div class="col">
+                    <div class="card-wrapper animation-{{ forloop.counter0|divisibleby:"3"|yesno:"left,right,bottom" }}" data-index="{{ forloop.counter0 }}">
+                        <div class="card shadow-sm border-light rounded-3">
+                            {% if post.blog_image %}
+                                <img src="{{ post.blog_image.url }}" class="card-img-top rounded-top" alt="{{ post.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text text-muted">{{ post.short_description|truncatewords:25 }}</p>
+                                <a href="{% url 'blogs' post.slug %}" class="btn btn-outline-primary stretched-link">
+                                    <i class="fa fa-arrow-right"></i> Read More
+                                </a>
+                            </div>
+                            <div class="card-footer text-muted small">
+                                <i class="fa fa-calendar-alt"></i> {{ post.created_at|date:"F j, Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">This author hasn't published any blog posts yet.</p>
+    {% endif %}
+</div>
+
+<style>
+    .card-wrapper {
+        opacity: 0;
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    /* Animation direction variations */
+    .animation-left {
+        transform: translateX(-40px) scale(0.95);
+    }
+
+    .animation-right {
+        transform: translateX(40px) scale(0.95);
+    }
+
+    .animation-bottom {
+        transform: translateY(40px) scale(0.95);
+    }
+
+    .card-wrapper.visible {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+
+    /* Hover animation for cards */
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cards = document.querySelectorAll('.card-wrapper');
+
+        function animateCards() {
+            const windowHeight = window.innerHeight;
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top <= windowHeight * 0.9 && !card.classList.contains('visible')) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 100); // stagger effect
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateCards);
+        animateCards();
+    });
+</script>
+{% endblock %}

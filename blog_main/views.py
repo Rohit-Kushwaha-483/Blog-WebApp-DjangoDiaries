@@ -82,18 +82,19 @@ def contact_success(request):
 # Handling the Registration
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('register')
+            return redirect('login')  # Adjust the redirect as needed (e.g., to the login page or a success page)
     else:
-        form=RegistrationForm()
+        form = RegistrationForm()
 
     context = {
-    'form':form,
+        'form': form,
     }
-    
-    return render(request, 'register.html',context)
+
+    return render(request, 'register.html', context)
+
 
 def login(request):
     if request.method == 'POST':

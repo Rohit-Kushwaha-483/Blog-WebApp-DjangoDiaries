@@ -5,6 +5,7 @@ from .forms import CategoryForm,BlogPostForm,AddUserForm,EditUserForm
 from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from .models import UserProfile
 
 # Create your views here.
 
@@ -13,16 +14,24 @@ def dashboard(request):
     category_counts = Category.objects.all().count()
     blogs_counts = Blogs.objects.all().count()
 
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+
     context = {
         'category_counts':category_counts,
         'blogs_counts':blogs_counts,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/dashboard.html',context)
 
 
 def categories(request):
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+
     context = {
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/categories.html',context)
@@ -37,8 +46,13 @@ def add_categories(request):
     else:
         form = CategoryForm()  # Initialize the form when the request is GET
     
+
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+
     context = {
         'form': form,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/add_categories.html', context)
@@ -58,9 +72,12 @@ def edit_categories(request, pk):
         # Otherwise, create the form and pre-populate with the category data
         form = CategoryForm(instance=category)
 
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
     context = {
         'form': form,
         'category': category,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/edit_categories.html', context)
@@ -73,9 +90,13 @@ def delete_categories(request, pk):
     if request.method == 'POST':
         category.delete()
         return redirect('categories')
+    
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
 
     context = {
-        'category': category
+        'category': category,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/confirm_delete_category.html',context)
@@ -85,8 +106,12 @@ def posts(request):
     # To display only the posts created by the logged-in user, you'll need to Filter posts by the logged-in user
     user_posts = Blogs.objects.filter(author=request.user)
 
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+
     context = {
         'posts': user_posts,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/posts.html',context)
@@ -118,9 +143,13 @@ def add_posts(request):
             
     else:
         form = BlogPostForm()
+    
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
 
     context = {
         'form': form,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/add_posts.html', context)
@@ -138,10 +167,13 @@ def edit_posts(request, pk):
             return redirect('posts')
         
     form = BlogPostForm(instance=post)    # Populate form with the current post data
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
 
     context = {
         'form':form,
         'post':post,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/edit_posts.html', context)
@@ -154,17 +186,23 @@ def delete_posts(request, pk):
         post.delete()
         return redirect('posts')
     
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+    
     context = {
-        'post':post
+        'post':post,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/confirm_delete_post.html', context)
 
 def users(request):
     users = User.objects.all()
-    
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
     context = {
         'users':users,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/users.html', context)
@@ -179,8 +217,12 @@ def add_users(request):
     else:
         form = AddUserForm()  # Create an empty form for GET request
 
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+
     context = {
         'form': form,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/add_users.html', context)
@@ -199,9 +241,13 @@ def edit_user(request, pk):
     else:
         form = EditUserForm(instance=user)
 
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+
     context = {
         'form': form,
         'user': user,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/edit_users.html', context)
@@ -214,8 +260,12 @@ def delete_user(request, pk):
             user.delete()
             return redirect('users')
     
+    # Retrieve the user's profile
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+    
     context = {
-        'user': user
+        'user': user,
+        'user_profile': user_profile, 
     }
 
     return render(request, 'dashboard/confirm_delete_users.html', context)

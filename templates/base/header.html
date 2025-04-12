@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django Diaries</title>
+
     <link rel="shortcut icon" href="https://w7.pngwing.com/pngs/856/415/png-transparent-writing-writer-author-write-away-book.png" type="image/svg+xml">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -18,49 +19,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora&family=Merriweather&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">  
   </head>
-<body>
- <div class="container">
+  <body>
+    <div class="container-fluid">
       
       <!-- Blog Header -->
-      <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1">
-            <a class="blog-header-logo text-dark fw-bold custom-hover" href="/"><i class="fas fa-feather-alt"></i> Django Diaries</a>
-          </div>
-          
-          <!-- Search Functionality -->
-          <div class="col-4">
-           <form action="{% url "search" %}" method='GET'>
-              <div class="input-group">
-                <input class="form-control border-end-0 rounded-start shadow-sm" name='keyword' type="text" placeholder="Search..." aria-label="Enter search term..." aria-describedby="button-search" />
-                <button type="submit" class="btn btn-warning" id="button-search"><i class="fa fa-search"></i></button>
-              </div>
-           </form>
-              
-          </div>
+      <header class="blog-header py-3 sticky-top bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container-fluid">
+            <a class="navbar-brand custom-hover" href="/">
+              <i class="fas fa-feather-alt"></i> Django Diaries
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% for category in categories %}
+                  <li class="nav-item">
+                    <a class="nav-link custom-hover" href="{% url 'posts_by_category' category.id %}">{{ category.category_name }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+              <form class="d-flex m-2" action="{% url 'search' %}" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                <button class="btn btn-outline-warning" type="submit"><i class="fa fa-search"></i></button>
+              </form>
 
-          <!-- Login & Register Buttons Section -->
-          <div class="col-4 d-flex justify-content-end align-items-center">
+              <!-- Login & Register Buttons Section -->
+              <div class="d-flex">
                 {% if not user.is_authenticated %}
-                <a class="btn btn-sm btn-warning" href="{% url 'login' %}"><i class="fa fa-sign-in-alt"></i> Login</a>
-                <a class="btn btn-sm btn-dark ms-2" href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a>
+                  <a class="btn btn-sm btn-warning me-2" href="{% url 'login' %}"><i class="fa fa-sign-in-alt"></i> Login</a>
+                  <a class="btn btn-sm btn-dark" href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a>
                 {% else %}
-                {% comment %} <span><i class="fas fa-user"></i> <b>{{ user.username }}</b></span> {% endcomment %}
-
-                <a class="btn btn-sm btn-dark ms-2" href="{% url 'dashboard' %}"><i class="fas fa-desktop"></i> Dashboard</a>
-                <a class="btn btn-sm btn-danger ms-2" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                  <a class="btn btn-sm btn-dark me-2" href="{% url 'dashboard' %}"><i class="fas fa-desktop"></i> Dashboard</a>
+                  <a class="btn btn-sm btn-danger" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 {% endif %}
+              </div>
+            </div>
           </div>
-        </div>
-      </header>
-
-      <!-- Categories Navigation -->
-      <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-          {% for category in categories %}
-            <a class="p-2 text-muted custom-hover" href="{% url "posts_by_category" category.id %}">{{ category.category_name }}</a>
-          {% endfor %}
         </nav>
-      </div>
+      </header>
