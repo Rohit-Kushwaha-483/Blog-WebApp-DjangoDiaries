@@ -1,7 +1,5 @@
 {% extends "base/base.html" %}
 
-
-
 {% block content %}
 
   <!-- RECENT ARTICLE Heading -->
@@ -15,30 +13,41 @@
   <main role="main" class="container">
     <div class="row">
       <div class="col-md-8 blog-main">
-        {% for post in blogs %}
-          <div class="card border-0 mb-4 shadow-sm">
-            <div class="row no-gutters">
-              <!-- Left Side: Image (Increased width to col-md-6) -->
-              <div class="col-md-6">
-                <img src="{{ post.blog_image.url }}" class="card-img-left img-fluid rounded shadow" alt="Post Image" style="height: 100%; object-fit: cover;">
-              </div>
-              <!-- Right Side: Content -->
-              <div class="col-md-6">
-                <div class="card-body">
-                  <h3>
-                    <a class="link-hover featured-post-title text-decoration-none" href="{% url 'blogs' post.slug %}">
-                      {{ post.title }}
-                    </a>
-                  </h3>
-                  <small class="mb-2 d-block text-muted">
-                    {{ post.created_at | timesince }} ago | {{ post.author }}
-                  </small>
-                  <p class="card-text">{{ post.short_description | truncatewords:30 }}</p>
+        {% if blogs %}
+          {% for post in blogs %}
+            <div class="card border-0 mb-4 shadow-sm">
+              <div class="row no-gutters">
+                <!-- Left Side: Image (Increased width to col-md-6) -->
+                <div class="col-md-6">
+                  <img src="{{ post.blog_image.url }}" class="card-img-left img-fluid rounded shadow" alt="Post Image" style="height: 100%; object-fit: cover;">
+                </div>
+                <!-- Right Side: Content -->
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <h3>
+                      <a class="link-hover featured-post-title text-decoration-none" href="{% url 'blogs' post.slug %}">
+                        {{ post.title }}
+                      </a>
+                    </h3>
+                    <small class="mb-2 d-block text-muted">
+                      {{ post.created_at | timesince }} ago | {{ post.author }}
+                    </small>
+                    <p class="card-text">{{ post.short_description | truncatewords:30 }}</p>
+                    <!-- Read More Button -->
+                    <a href="{% url 'blogs' post.slug %}" class="btn btn-primary custom-badge">Read More</a>
+                  </div>
                 </div>
               </div>
             </div>
+          {% endfor %}
+        {% else %}
+          <!-- Shake Animation for Error -->
+          <div class="alert alert-danger alert-dismissible fade show shake text-center py-4" role="alert">
+            <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
+            <h4 class="alert-heading">No Results Found!</h4>
+            <p><strong>No blog posts found for "{{ keyword }}".</strong> Try a different search term.</p>
           </div>
-        {% endfor %}
+        {% endif %}
       </div>
       <!-- /.blog-main -->
 
@@ -50,5 +59,20 @@
     </div><!-- /.row -->
   </main><!-- /.container -->
 
+  <style>
+    /* Simple Shake Animation */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    }
+  
+    /* Apply the shake animation to the alert */
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+  </style>
+  
 {% endblock %}
-

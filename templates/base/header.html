@@ -43,7 +43,7 @@
                 {% endfor %}
               </ul>
               <form class="d-flex m-2" action="{% url 'search' %}" method="GET">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword" required>
                 <button class="btn btn-outline-warning" type="submit"><i class="fa fa-search"></i></button>
               </form>
 
