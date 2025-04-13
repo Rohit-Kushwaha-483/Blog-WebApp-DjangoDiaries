@@ -10,8 +10,10 @@
         <div class="col-md-9 mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h3 class="fw-bold text-dark text-uppercase">All Categories</h3>
-                <!-- 'Add New Category' Button on the right -->
+                <!-- 'Add New Category' Button on the right, visible only to superusers -->
+                {% if user.is_superuser %}
                 <a href="{% url 'add_categories' %}" class="btn custom-badge">Add New Category</a>
+                {% endif %}
             </div>
 
             <div class="card bg-dark border-0 shadow-lg">
@@ -23,7 +25,9 @@
                                 <th>Category Name</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
+                                {% if user.is_superuser %}
                                 <th class="text-center">Actions</th>
+                                {% endif %}
                             </tr>
                         </thead>
                         <tbody>
@@ -34,12 +38,14 @@
                                 <td>{{ category.created_at}}</td>
                                 <td>{{ category.updated_at}}</td>
                                 <td class="text-center">
-                                    <a href="{% url "edit_categories" category.id %}" class="btn btn-outline-info btn-sm" title="Edit">
+                                    {% if user.is_superuser %}
+                                    <a href="{% url 'edit_categories' category.id %}" class="btn btn-outline-info btn-sm" title="Edit">
                                         <i class="fa-solid fa-pen-to-square"></i> Edit
                                     </a>
-                                    <a href="{% url "delete_categories" category.id %}" class="btn btn-outline-danger btn-sm ms-2" title="Delete">
+                                    <a href="{% url 'delete_categories' category.id %}" class="btn btn-outline-danger btn-sm ms-2" title="Delete">
                                         <i class="fa-solid fa-trash"></i> Delete
                                     </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}
