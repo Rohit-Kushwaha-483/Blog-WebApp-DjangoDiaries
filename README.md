@@ -1,6 +1,6 @@
 # ABSTRACT
 
-![Project Screenshot](https://i.ibb.co/BHZ2nPL/Project-Screenshot.png)
+![Project Screenshot](https://i.ibb.co/BHZ2nPL9/Project-Screenshot.png)
 
 In the modern digital age, blogging has become a powerful tool for individuals and organizations to share knowledge and opinions across various fields. **"Django Diaries"** is a dynamic, user-friendly blogging platform that allows users to create accounts, write and share blogs across a wide range of categories including Science, Health, Business, Technology, Current Affairs, Sports, Lifestyle, and Travel. This web application is designed to foster engagement, enhance content discovery, and provide a seamless experience for both writers and readers.
 
