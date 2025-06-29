@@ -1,5 +1,7 @@
 # ABSTRACT
 
+![Project Screenshot](https://i.ibb.co/BHZ2nPL/Project-Screenshot.png)
+
 In the modern digital age, blogging has become a powerful tool for individuals and organizations to share knowledge and opinions across various fields. **"Django Diaries"** is a dynamic, user-friendly blogging platform that allows users to create accounts, write and share blogs across a wide range of categories including Science, Health, Business, Technology, Current Affairs, Sports, Lifestyle, and Travel. This web application is designed to foster engagement, enhance content discovery, and provide a seamless experience for both writers and readers.
 
 The project utilizes the Django framework, with a robust backend powered by SQLite as the database, ensuring efficient data management and scalability. The frontend leverages Bootstrap CSS alongside crispy forms to improve the look and feel of the built-in Django forms, providing a responsive and polished user interface. Key features of the platform include an intuitive post categorization system, a featured post section on the landing page, a comprehensive search function, and category-based filtering for easy navigation. Users can also view posts by specific authors through clickable profile icons, enhancing content discoverability.
